@@ -3,19 +3,50 @@
   <head>
     <meta charset="UTF-8" />
     <title>Glitch Effect</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles.css" />
-    <script src="randomScript.js" defer></script>
-    <script src="randomScript.js" defer></script>
+    <!-- <script src="randomScript.js" defer></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <!-- <script type="module" src="./scripts/gsap-glitch-effect.js"></script>  -->
   </head>
   <body>
-    <div id="glitch-container" data-text="div" class="image">
+    <div id="glitch-container" data-text="div">
       <!-- 텍스트 이미지를 포함할 요소 -->
       <img
         src="headlock.jpeg"
         alt="Random Text"
-        class="glitch-item"
         data-text="hello world!"
+        class="image"
       />
+      <!-- class="glitch-item" -->
     </div>
+    <script>
+      const image = document.querySelector(".image");
+      // gsap.to(image, {
+      //   duration: 2,
+      //   x: 100,
+      //   rotation: 360,
+      //   ease: "power2.out",
+      // });
+
+      const glitch = gsap.to(image, {
+        duration: 0.5, // Animation duration in seconds
+        repeat: -1, // Number of times the animation should repeat (-2 means infinite)
+        x: 20, // Horizontal translation
+        y: 111, // Vertical translation
+        scale: 2, // Scale factor
+        skewX: 0, // Horizontal skew angle
+        skewY: 0, // Vertical skew angle
+        transformOrigin: "center center", // Transform origin point
+        ease: "sine.inOut", // Easing function
+        stagger: 0.1, // Delay between each element in a group
+        onUpdate: () => {
+          // onUpdate에서 gsap.set()을 사용하세요.
+          gsap.set(image, { skewY: Math.random() * 0.5 });
+        },
+      });
+
+      glitch.play(); // Start the glitch animation
+    </script>
   </body>
 </html>
